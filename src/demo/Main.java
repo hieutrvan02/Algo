@@ -10,7 +10,7 @@ import java.util.Set;
 
 import binarytree.TreeNode;
 
-public class Main{
+public class Main {
 
 	public int removeDuplicate(int[] nums) {
 		int j = 1;
@@ -195,91 +195,109 @@ public class Main{
 
 		return ans;
 	}
-	
+
 	public boolean isIsomorphic(String s, String t) {
-        // Base case: for different length of two strings...
-        if(s.length() != t.length())
-            return false;
-        // Create two maps for s & t strings...
-        int[] map1 = new int[256];
-        int[] map2 = new int[256];
-        // Traverse all elements through the loop...
-        for(int idx = 0; idx < s.length(); idx++){
-            // Compare the maps, if not equal, return false...
-            if(map1[s.charAt(idx)] != map2[t.charAt(idx)])
-                return false;
-            // Insert each character if string s and t into seperate map...
-            map1[s.charAt(idx)] = idx + 1;
-            map2[t.charAt(idx)] = idx + 1;
-        }
-        return true;    // Otherwise return true...
-    }
-	
+		// Base case: for different length of two strings...
+		if (s.length() != t.length())
+			return false;
+		// Create two maps for s & t strings...
+		int[] map1 = new int[256];
+		int[] map2 = new int[256];
+		// Traverse all elements through the loop...
+		for (int idx = 0; idx < s.length(); idx++) {
+			// Compare the maps, if not equal, return false...
+			if (map1[s.charAt(idx)] != map2[t.charAt(idx)])
+				return false;
+			// Insert each character if string s and t into seperate map...
+			map1[s.charAt(idx)] = idx + 1;
+			map2[t.charAt(idx)] = idx + 1;
+		}
+		return true; // Otherwise return true...
+	}
+
 	public int addDigits(int num) {
-        int s = 0;
-        do {
-            s += num % 10;
-            num = num / 10;
-        } while (num != 0);
-        if (s >= 10) return addDigits(s);
-        else return s;
-    }
-	
+		int s = 0;
+		do {
+			s += num % 10;
+			num = num / 10;
+		} while (num != 0);
+		if (s >= 10)
+			return addDigits(s);
+		else
+			return s;
+	}
+
 	public boolean wordPattern(String pattern, String s) {
-        HashMap<Character,String> m=new HashMap<>();
-        String str[]=s.split(" ");
-        int a = pattern.length();
+		HashMap<Character, String> m = new HashMap<>();
+		String str[] = s.split(" ");
+		int a = pattern.length();
 
-        if(a!=str.length) {return false;}
+		if (a != str.length) {
+			return false;
+		}
 
-        for(int i=0;i<pattern.length();i++)
-        {
-            char ch=pattern.charAt(i);
-            if(m.containsKey(ch))
-            {
-                String res=m.get(ch);
-                if(!res.equals(str[i]))
-                {
-                    return false;
-                }
-            }
-            //check if the values are repeating ie a-->dog b-->dog should not b repeated 
-            else
-            {
-                if(m.containsValue(str[i]))
-                {
-                    return false;
-                }
-            }
+		for (int i = 0; i < pattern.length(); i++) {
+			char ch = pattern.charAt(i);
+			if (m.containsKey(ch)) {
+				String res = m.get(ch);
+				if (!res.equals(str[i])) {
+					return false;
+				}
+			}
+			// check if the values are repeating ie a-->dog b-->dog should not b repeated
+			else {
+				if (m.containsValue(str[i])) {
+					return false;
+				}
+			}
 
-            m.put(ch,str[i]);
-        }
-        return true;
-    }
-	
+			m.put(ch, str[i]);
+		}
+		return true;
+	}
+
 	public int sumOfLeftLeaves(TreeNode root) {
-        int sum = 0;
-        return findOfleftLeaves(root, sum);
-    }
+		int sum = 0;
+		return findOfleftLeaves(root, sum);
+	}
 
-    public int findOfleftLeaves(TreeNode node, int sum) {
-        if (node.left == null && node.right == null) sum += node.val;
-        if (node.left != null) return findOfleftLeaves(node.left, sum);
-        if (node.right != null) return findOfleftLeaves(node.right, sum);
-        return sum;
-    }
-    
-    public int firstUniqChar(String s) {
-    	HashMap<String,Integer> n=new HashMap<>();
-    	String[] arr = s.split("");
-        for (String string : arr) {
+	public int findOfleftLeaves(TreeNode node, int sum) {
+		if (node.left == null && node.right == null)
+			sum += node.val;
+		if (node.left != null)
+			return findOfleftLeaves(node.left, sum);
+		if (node.right != null)
+			return findOfleftLeaves(node.right, sum);
+		return sum;
+	}
+
+	public int firstUniqChar(String s) {
+		HashMap<String, Integer> n = new HashMap<>();
+		String[] arr = s.split("");
+		for (String string : arr) {
 			n.put(string, n.getOrDefault(string, 0) + 1);
 		}
-        for (int i = 0; i < arr.length; i++) {
-			if (n.get(arr[i]) == 1) return i;
+		for (int i = 0; i < arr.length; i++) {
+			if (n.get(arr[i]) == 1)
+				return i;
 		}
-        return -1;
-    }
+		return -1;
+	}
+
+	public char findTheDifference(String s, String t) {
+		int freq[]=new int[256];
+        for(int i=0;i<t.length();i++){
+            freq[t.charAt(i)]++;
+        }
+        for(int i=0;i<s.length();i++){
+            freq[s.charAt(i)]--;
+        }
+        for(int i=0;i<256;i++){
+            if(freq[i]!=0){
+                return (char)(i);
+            }
+        }return ' ';
+	}
 
 	public static void main(String[] args) {
 		int[] arr = { 1, 2 };
